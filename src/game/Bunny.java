@@ -11,7 +11,6 @@ import core.Type;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
-
 /**
  *
  * @author anmol
@@ -19,7 +18,7 @@ import java.awt.Point;
 public class Bunny extends GameObject{
     Direction direction;
     Brick brick;
-    public static int life=3;
+    public static int life=5;
 /**
  * 
  * @param location defines the starting location of snake
@@ -31,10 +30,24 @@ public class Bunny extends GameObject{
         super(location, width, height, type);
         direction = Direction.right;       
     }
-
-
     @Override
     public void move() {
+                if(this.location.x<0)
+                {
+                    this.setLocation(new Point(600,location.y));
+                }
+                if(this.location.x>600)
+                {
+                    this.setLocation(new Point(0,location.y));
+                }
+                if(this.location.y<0)
+                {
+                    this.setLocation(new Point(location.x,387));
+                }
+                if(this.location.y>387)
+                {
+                    this.setLocation(new Point(location.x,0));
+                }  
         switch(direction)
         {
             case right:
@@ -51,18 +64,15 @@ public class Bunny extends GameObject{
                 break;
         }
     }
-
     @Override
     public void design(Graphics g) {
         g.setColor(Color.blue);
         g.fillOval(location.x, location.y, width, height);
     }
-    
     public void left()
     {
         if(direction!=Direction.right)
         direction = Direction.left;
-        
     }
     public void right()
     {
@@ -79,7 +89,4 @@ public class Bunny extends GameObject{
         if(direction!=Direction.up)
         direction = Direction.down;
     }
-
-    
-    
 }

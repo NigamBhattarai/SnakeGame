@@ -48,8 +48,9 @@ public abstract class GameObject implements Renderable{
     public void setImage(String imageSrc)
     {
         try {
-             img = ImageIO.read(new File(imageSrc));
-             //System.out.println(img.toString());
+             File file = new File(imageSrc);
+             img = ImageIO.read(file);
+             System.out.println(file.getAbsolutePath());
         } catch (IOException ex) {
             System.out.println("Image not found!!!!");
         }

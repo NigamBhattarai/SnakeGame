@@ -2,20 +2,24 @@ package game;
 
 import component.GameObject;
 import component.Screen;
+import core.Direction;
 import core.Type;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.SourceDataLine;
 /**
  *
  * @author nigam
  */
 public class Brick extends GameObject{
     Screen screen;
-    Bunny bunny;
-    /**
+    Bunny bunny;    /**
      * 
      * @param location Sets the location of the brick
      * @param width Sets the width of the brick
@@ -30,9 +34,14 @@ public class Brick extends GameObject{
     public void move() {
         if(bunny.didCollide(this))
         {
+        int numbeeps = 10;
+
+        for(int x=0;x<numbeeps;x++)
+        {
+          java.awt.Toolkit.getDefaultToolkit().beep();
+        }
             bunny.life--;
             bunny.setLocation(new Point(0,100));
-            
         }
     }
     @Override

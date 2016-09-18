@@ -39,10 +39,13 @@ public class Game implements KeyListener{
         randomNumy = 5 + (int)(Math.random() * 340); 
         System.out.println("rndomx1="+randomNumx);
         System.out.println("rndomy1="+randomNumy);
-        fruit = new Fruit(new Point(randomNumx,randomNumy),15,15,Type.circle,bunny);
-        level.lvl=4;
+        fruit = new Fruit(new Point(randomNumx,randomNumy),20, 20,Type.other,bunny,this,bricks);
         scores = new Score(new Point(2,420),70,30,Type.other);
         scores.setColor(Color.BLACK);
+        if(level.score==2)
+        {
+            level.lvl=2;
+        }
         lifes = new Life(new Point(500,420),70,30,Type.other);
         lifes.setColor(Color.BLACK);
         seperator = new Seperator(new Point(0,400),600,0,Type.line);
@@ -66,10 +69,6 @@ public class Game implements KeyListener{
         screen.add(scores);
         screen.add(body);
         screen.add(bunny);
-        if(bunny.didCollide(fruit))
-        {
-            checkCollide();
-        }
         screen.play();
     }
     /**
@@ -81,7 +80,7 @@ public class Game implements KeyListener{
             {
                 randomNumx = 5 + (int)(Math.random() * 550); 
                 randomNumy = 5 + (int)(Math.random() * 340); 
-                fruit = new Fruit(new Point(randomNumx,randomNumy),15,15,Type.circle,bunny);
+                fruit = new Fruit(new Point(randomNumx,randomNumy),20, 20,Type.other,bunny,this,bricks);
                 System.out.println("rndomx2="+randomNumx);
                 System.out.println("rndomy2="+randomNumy);
                 for(c=0; c<bricks.length; c++)//Again checks if any of the fruit is over any of the brick.If yes, this function itself is called
@@ -99,6 +98,10 @@ public class Game implements KeyListener{
     public boolean play(int state, String name)
     {
         return true;
+    }
+    public Brick[] getBrick()
+    {
+        return bricks;
     }
 
     @Override
