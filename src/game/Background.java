@@ -1,7 +1,7 @@
 package game;
 
 import component.GameObject;
-import game.Brick;
+import game.Bush;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.logging.Level;

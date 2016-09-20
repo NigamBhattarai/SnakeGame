@@ -17,25 +17,45 @@ import javax.imageio.ImageIO;
 public class Fruit extends GameObject{
     Bunny bunny;
     Level level;
-    BufferedImage img=null;
+    int scr;
+    static int count=1;
     Game game;
     int randomNumx,randomNumy,c=0;
-    Brick[] bricks;
-    public Fruit(Point location,int width, int height, Type type,Bunny bunny,Game game,Brick[] bricks) {
+    Bush[] bushes;
+    public Fruit(Point location,int width, int height, Type type,Bunny bunny,Game game,Bush[] bushes) {
         super(location, width, height, type);
         this.bunny=bunny;
         this.game=game;
-        this.bricks=bricks;
+        this.bushes=bushes;
     }
-
     @Override
     public void move() {
+        if(level.score==count*2)
+        {
+            scr=level.score;
+            count++;
+        }
         if(this.didCollide(bunny))
         {
-            for(int x=1;x>0;x--)
+            ifCollide();
+        }
+        if(game.lvl!=5)
+        {
+            if(level.score==scr)
             {
-              java.awt.Toolkit.getDefaultToolkit().beep();
+                game.lvl++;
+                for(int i=0; i<game.bushes.length; i++)
+                {
+                    game.bushes[i].clearbush();
+                }
+                game.bunny.setLocation(new Point(0,100));
+                game.addBush();
             }
+        }
+    }
+    private void ifCollide()
+    {
+            java.awt.Toolkit.getDefaultToolkit().beep();
             level.score++;
             randomNumx = 5 + (int)(Math.random() * 550);
             randomNumy = 5 + (int)(Math.random() * 340);
@@ -44,20 +64,19 @@ public class Fruit extends GameObject{
             {
                 checkCollide();
             }
-        }
     }
     public void checkCollide()
     {
-            if(game.getBrick()[c].getArea().intersects(this.getArea()))//If any of the fruit is over any of the brick, the following codes will execute.
+            if(game.getBrick()[c].didCollide(this))//If any of the fruit is over any of the brick, the following codes will execute.
             {
                 randomNumx = 5 + (int)(Math.random() * 550); 
                 randomNumy = 5 + (int)(Math.random() * 340); 
                 this.setLocation(new Point(randomNumx,randomNumy));
                 System.out.println("rndomx2="+randomNumx);
                 System.out.println("rndomy2="+randomNumy);
-                for(c=0; c<game.getBrick().length; c++)//Again checks if any of the fruit is over any of the brick.If yes, this function itself is called
+                for(int d=0; d<game.getBrick().length; d++)//Again checks if any of the fruit is over any of the brick.If yes, this function itself is called
                 {
-                    if(game.getBrick()[c].getArea().intersects(this.getArea())){c=0;checkCollide();}
+                    if(game.getBrick()[d].didCollide(this)){checkCollide();}
                 }
             }
     }

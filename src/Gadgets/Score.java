@@ -26,7 +26,6 @@ public class Score extends GameObject{
 
     @Override
     public void design(Graphics g) {
-        g.setColor(Color.black);
         g.setFont(new Font("",3,12));
         g.drawString("Score : "+level.score, location.x, location.y);
     }

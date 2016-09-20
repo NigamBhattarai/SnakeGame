@@ -1,14 +1,11 @@
 package component;
 
-import core.Type;
-import game.Brick;
+import game.Bush;
 import game.Bunny;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
@@ -16,18 +13,17 @@ import javax.swing.JPanel;
 /**
  *
  * @author anmol
- */
+*/
 public class Screen extends JPanel implements Runnable{
     Thread game;
     Bunny bunny;
-    Brick brick;
+    Bush bush;
 ArrayList<GameObject> gameObjects=new ArrayList<GameObject>();
 
     public Screen(int width,int height,Color backgroundColor)
     {
         this.setPreferredSize(new Dimension(width,height));
         this.setBackground(backgroundColor);
-        
     }
     public void add(GameObject gameObject)
     {
@@ -53,7 +49,6 @@ ArrayList<GameObject> gameObjects=new ArrayList<GameObject>();
         {
             gameObjects.get(i).castOnScreen(g);
         }
-       
     }
     private void move()
     {
@@ -80,7 +75,7 @@ ArrayList<GameObject> gameObjects=new ArrayList<GameObject>();
                 try {
                         Thread.sleep(10);
                     } catch (InterruptedException ex) {
-                        Logger.getLogger(Brick.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(Bush.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 this.move();
                 this.repaint();

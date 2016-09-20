@@ -17,8 +17,8 @@ import java.awt.Point;
  */
 public class Bunny extends GameObject{
     Direction direction;
-    Brick brick;
-    public static int life=5;
+    Bush brick;
+    public static int life=5000;
 /**
  * 
  * @param location defines the starting location of snake
@@ -34,9 +34,9 @@ public class Bunny extends GameObject{
     public void move() {
                 if(this.location.x<0)
                 {
-                    this.setLocation(new Point(600,location.y));
+                    this.setLocation(new Point(587,location.y));
                 }
-                if(this.location.x>600)
+                if(this.location.x>587)
                 {
                     this.setLocation(new Point(0,location.y));
                 }

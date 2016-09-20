@@ -17,15 +17,17 @@ import java.awt.event.KeyListener;
 public class Game implements KeyListener{
     Screen screen;
     Level level;
+    Background background;
     Bunny bunny;
     Score scores;
     Fruit fruit;
     Life lifes;
     Body body;
     int i,c;
+    public static int lvl=1;
     int randomNumx,randomNumy;
     Seperator seperator;
-    Brick[] bricks;
+    Bush[] bushes;
     /**
      * Default Constructor which loads the Game class
      */
@@ -39,28 +41,17 @@ public class Game implements KeyListener{
         randomNumy = 5 + (int)(Math.random() * 340); 
         System.out.println("rndomx1="+randomNumx);
         System.out.println("rndomy1="+randomNumy);
-        fruit = new Fruit(new Point(randomNumx,randomNumy),20, 20,Type.other,bunny,this,bricks);
+        background = new Background(new Point(),"background.jpg");
+        fruit = new Fruit(new Point(randomNumx,randomNumy),20, 20,Type.other,bunny,this,bushes);
         scores = new Score(new Point(2,420),70,30,Type.other);
-        scores.setColor(Color.BLACK);
-        if(level.score==2)
-        {
-            level.lvl=2;
-        }
+        scores.setColor(Color.white);
         lifes = new Life(new Point(500,420),70,30,Type.other);
-        lifes.setColor(Color.BLACK);
+        lifes.setColor(Color.white);
         seperator = new Seperator(new Point(0,400),600,0,Type.line);
-        seperator.setColor(Color.black);
+        seperator.setColor(Color.white);
         level = new Level(bunny);
-        bricks = level.getbricks(i);
-        for(i=0; i<bricks.length; i++)
-        {
-            bricks[i].setColor(Color.black);
-            screen.add(bricks[i]);
-        }
-        for(c=0; c<bricks.length; c++)
-        {
-            checkCollide();
-        }
+        screen.add(background);
+        addBush();
         stage.addKeyListener(this);
         fruit.setColor(Color.BLUE);
         screen.add(fruit);
@@ -72,20 +63,26 @@ public class Game implements KeyListener{
         screen.play();
     }
     /**
-     * This Function Checks either fruit is on the brick or not, If yes, new location is given to the fruit!
+     * This Function Checks either fruit is on the bush or not, If yes, new location is given to the fruit!
      */
+    public void addBush()
+    {
+        bushes = level.getbushes(lvl);
+        for(i=0; i<bushes.length; i++)screen.add(bushes[i]);
+        for(c=0; c<bushes.length; c++)checkCollide();
+    }
     public void checkCollide()
     {
-            if(bricks[c].getArea().intersects(fruit.getArea()))//If any of the fruit is over any of the brick, the following codes will execute.
+            if(bushes[c].getArea().intersects(fruit.getArea()))//If any of the fruit is over any of the bush, the following codes will execute.
             {
                 randomNumx = 5 + (int)(Math.random() * 550); 
                 randomNumy = 5 + (int)(Math.random() * 340); 
-                fruit = new Fruit(new Point(randomNumx,randomNumy),20, 20,Type.other,bunny,this,bricks);
+                fruit.setLocation(new Point(randomNumx,randomNumy));
                 System.out.println("rndomx2="+randomNumx);
                 System.out.println("rndomy2="+randomNumy);
-                for(c=0; c<bricks.length; c++)//Again checks if any of the fruit is over any of the brick.If yes, this function itself is called
+                for(c=0; c<bushes.length; c++)//Again checks if any of the fruit is over any of the bush.If yes, this function itself is called
                 {
-                    if(bricks[c].getArea().intersects(fruit.getArea())){c=0;checkCollide();}
+                    if(bushes[c].getArea().intersects(fruit.getArea())){checkCollide();}
                 }
             }
     }
@@ -99,9 +96,9 @@ public class Game implements KeyListener{
     {
         return true;
     }
-    public Brick[] getBrick()
+    public Bush[] getBrick()
     {
-        return bricks;
+        return bushes;
     }
 
     @Override

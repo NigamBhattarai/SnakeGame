@@ -7,6 +7,7 @@ package Gadgets;
 
 import component.GameObject;
 import core.Type;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 
