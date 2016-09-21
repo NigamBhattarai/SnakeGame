@@ -3,6 +3,7 @@ package game;
 import Gadgets.Life;
 import Gadgets.Score;
 import Gadgets.Seperator;
+import Gadgets.ShowLevel;
 import component.Screen;
 import component.Stage;
 import core.Type;
@@ -22,7 +23,9 @@ public class Game implements KeyListener{
     Score scores;
     Fruit fruit;
     Life lifes;
+    Stage stage;
     Body body;
+    ShowLevel levels;
     int i,c;
     public static int lvl=1;
     int randomNumx,randomNumy;
@@ -33,8 +36,16 @@ public class Game implements KeyListener{
      */
     public Game()
     {
+        createObjects();
+        addObjects();
+    }
+    /**
+     * This function is used in the constructor to initialise objects to be used in the constructors
+     */
+    private void createObjects()
+    {
         screen=new Screen(600,470,Color.WHITE);
-        Stage stage = new Stage(screen);
+        stage = new Stage(screen);
         bunny=new Bunny(new Point(0,100),12,12,Type.other);
         body=new Body(new Point(0-10,100),10,10,Type.other,bunny);
         randomNumx = 5 + (int)(Math.random() * 550); 
@@ -47,30 +58,38 @@ public class Game implements KeyListener{
         scores.setColor(Color.white);
         lifes = new Life(new Point(500,420),70,30,Type.other);
         lifes.setColor(Color.white);
+        levels=new ShowLevel(new Point(250,420),70,30,Type.other);
         seperator = new Seperator(new Point(0,400),600,0,Type.line);
         seperator.setColor(Color.white);
         level = new Level(bunny);
+        
+    }
+    /**
+     * This function is used in the constructor to add objects in the screen
+     */
+    private void addObjects()
+    {
         screen.add(background);
         addBush();
         stage.addKeyListener(this);
-        fruit.setColor(Color.BLUE);
         screen.add(fruit);
         screen.add(seperator);
         screen.add(lifes);
         screen.add(scores);
+        screen.add(levels);
         screen.add(body);
         screen.add(bunny);
         screen.play();
     }
-    /**
-     * This Function Checks either fruit is on the bush or not, If yes, new location is given to the fruit!
-     */
     public void addBush()
     {
         bushes = level.getbushes(lvl);
         for(i=0; i<bushes.length; i++)screen.add(bushes[i]);
         for(c=0; c<bushes.length; c++)checkCollide();
     }
+    /**
+     * This Function Checks either fruit is on the bush or not, If yes, new location is given to the fruit!
+     */
     public void checkCollide()
     {
             if(bushes[c].getArea().intersects(fruit.getArea()))//If any of the fruit is over any of the bush, the following codes will execute.

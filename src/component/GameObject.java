@@ -74,7 +74,7 @@ public abstract class GameObject implements Renderable{
     public boolean didCollide(GameObject other)
     {
         return this.getArea().intersects(other.getArea());
-    }   
+    }
     public Rectangle getArea(){
       return new Rectangle(location.x,location.y,width,height);
     } 

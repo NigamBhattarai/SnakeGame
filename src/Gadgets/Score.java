@@ -2,6 +2,7 @@ package Gadgets;
 
 import component.GameObject;
 import core.Type;
+import game.Fruit;
 import game.Game;
 import game.Level;
 import java.awt.Color;
@@ -15,6 +16,7 @@ import java.awt.Point;
  */
 public class Score extends GameObject{
     Level level;
+    Fruit fruit;
     public Score(Point location, int width, int height, Type type) {
         super(location, width, height, type);
     }
@@ -29,5 +31,4 @@ public class Score extends GameObject{
         g.setFont(new Font("",3,12));
         g.drawString("Score : "+level.score, location.x, location.y);
     }
-    
 }

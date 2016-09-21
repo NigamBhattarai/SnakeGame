@@ -7,7 +7,7 @@ package Gadgets;
 
 import component.GameObject;
 import core.Type;
-import java.awt.Color;
+import game.Game;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -16,11 +16,10 @@ import java.awt.Point;
  *
  * @author nigam
  */
-public class GOver extends GameObject{
-    public static Boolean show;
-    public GOver(Point location, int width, int height, Type type) {
+public class ShowLevel extends GameObject{
+    Game game;
+    public ShowLevel(Point location, int width, int height, Type type) {
         super(location, width, height, type);
-        show = new Boolean(false);
     }
     
     @Override
@@ -30,12 +29,7 @@ public class GOver extends GameObject{
 
     @Override
     public void design(Graphics g) {
-        g.setColor(Color.BLACK);
-        g.setFont(new Font("Sans Serif",3,32));
-        g.drawString("Game Over!!!! ", 302,210);
-    }
-    public void setstate()
-    {
-        show=true;
+        g.setFont(new Font("",3,12));
+        g.drawString("Level : "+game.lvl, location.x, location.y);
     }
 }

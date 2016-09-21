@@ -18,13 +18,13 @@ import java.awt.Point;
 public class Bunny extends GameObject{
     Direction direction;
     Bush brick;
-    public static int life=5000;
+    public static int life=5;
 /**
  * 
  * @param location defines the starting location of snake
  * @param width defines the width of snake of type rectangle
  * @param height defines the height of snake of type rectangle  
- * @param type what type it belong to eg:rectangle,circle,other,etc
+ * @param type what type it belong to e.g.:rectangle,circle,other,etc
  */
     public Bunny(Point location, int width, int height, Type type) {
         super(location, width, height, type);

@@ -32,17 +32,14 @@ public class Bush extends GameObject{
     public void move() {
         if(bunny.didCollide(this))
         {
-        for(int x=0;x<10;x++)
-        {
-          java.awt.Toolkit.getDefaultToolkit().beep();
-        }
+            java.awt.Toolkit.getDefaultToolkit().beep();
             bunny.life--;
             bunny.setLocation(new Point(0,100));
         }
     }
     public void clearbush()
     {
-        this.setLocation(new Point(-300,-300));
+        this.setLocation(new Point(900 + (int)(Math.random() * 99999),5 + (int)(Math.random() * 99999)));
     }
     @Override
     public void castOnScreen(Graphics g)
